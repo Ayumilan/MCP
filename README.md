@@ -7,6 +7,8 @@ This guide will help you set up a Python environment for demonstrating the MCP (
 Make sure you have the following installed on your system:
 - Python (version 3.8 or later)
 - pip (Python package manager)
+- Node.js (version 14 or later) - required for npx and MCP filesystem server
+- npm (comes with Node.js)
 - Git (optional, for version control)
 
 ### 1. Clone the Project Repository
@@ -78,14 +80,45 @@ AZURE_OPENAI_DEPLOYMENT_NAME=***
 ```
 > **Note:** Replace the above values with your own keys and endpoints if applicable.
 
-### 6. Run the Demo
+### 6. Configure MCP Servers
+
+The `server_config.json` file contains the configuration for various MCP servers used in this project. This file defines how different servers are launched and what arguments they require.
+
+#### Current Server Configuration:
+- **filesystem**: Provides file system access using the MCP filesystem server (requires Node.js and npx)
+- **research**: Custom research server that handles academic paper search and analysis
+- **fetch**: HTTP fetch capabilities for web content retrieval
+
+#### Server Configuration Structure:
+```json
+{
+    "mcpServers": {
+        "filesystem": {
+            "command": "npx",
+            "args": ["-y", "@modelcontextprotocol/server-filesystem", "."]
+        },
+        "research": {
+            "command": "python",
+            "args": ["research_server.py"]
+        },
+        "fetch": {
+            "command": "python",
+            "args": ["-m", "mcp_server_fetch"]
+        }
+    }
+}
+```
+
+> **Note:** Make sure all required MCP server dependencies are installed before running the demo. The fetch server requires `mcp_server_fetch` to be installed via pip.
+
+### 7. Run the Demo
 **Run Chatbot:**
 Start the chatbot by running:
 ```cmd
 python mcp_chatbot.py
 ```
 
-### 7. Test Your Setup
+### 8. Test Your Setup
 
 Verify the setup by executing sample commands or interacting with the chatbot and tools.
 
