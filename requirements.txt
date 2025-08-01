@@ -27,3 +27,4 @@ typing_extensions==4.13.2
 urllib3==2.4.0
 uvicorn==0.34.3
 mcp-server-fetch
+openai
